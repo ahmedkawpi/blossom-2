@@ -1,0 +1,133 @@
+/* ================================
+   Blossom 2 — Home
+   ================================ */
+
+.site-header {
+    width: 100%;
+}
+
+.header-inner {
+    min-height: 72px;
+
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+
+    gap: 24px;
+}
+
+.brand {
+    display: inline-flex;
+    align-items: center;
+    gap: 10px;
+
+    color: inherit;
+}
+
+.brand-logo {
+    width: 32px;
+    height: 32px;
+
+    border-radius: 50%;
+}
+
+.brand-name {
+    font-size: 18px;
+    font-weight: 700;
+}
+
+.main-nav {
+    display: flex;
+    align-items: center;
+    gap: 20px;
+}
+
+.main-nav a {
+    color: inherit;
+    font-size: 14px;
+}
+
+.header-actions {
+    display: flex;
+    align-items: center;
+    gap: 8px;
+}
+
+.header-actions button {
+    border: 0;
+    background: transparent;
+
+    min-width: 36px;
+    height: 36px;
+
+    display: grid;
+    place-items: center;
+
+    border-radius: var(--radius-sm);
+}
+/* ---------- Hero ---------- */
+
+.hero {
+    min-height: calc(100vh - 72px);
+
+    display: flex;
+    align-items: center;
+}
+
+.hero-inner {
+    display: grid;
+    gap: 40px;
+    padding-block: 48px;
+}
+
+.hero-content {
+    display: flex;
+    flex-direction: column;
+    align-items: flex-start;
+    gap: 18px;
+}
+
+.hero-eyebrow {
+    font-size: 13px;
+    font-weight: 600;
+    opacity: 0.65;
+}
+
+.hero h1 {
+    max-width: 650px;
+
+    font-size: clamp(38px, 8vw, 72px);
+    line-height: 1.05;
+    letter-spacing: -1px;
+}
+
+.hero-text {
+    font-size: 16px;
+    opacity: 0.7;
+}
+
+.hero-cta {
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+
+    min-height: 48px;
+    padding-inline: 24px;
+
+    border-radius: var(--radius-md);
+
+    font-size: 15px;
+    font-weight: 700;
+
+    transition: transform var(--transition-fast);
+}
+
+.hero-cta:hover {
+    transform: translateY(-2px);
+}
+
+.hero-media {
+    min-height: 280px;
+
+    border-radius: var(--radius-lg);
+}
