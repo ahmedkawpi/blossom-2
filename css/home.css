@@ -126,11 +126,7 @@
     transform: translateY(-2px);
 }
 
-.hero-media {
-    min-height: 280px;
 
-    border-radius: var(--radius-lg);
-}
 /* ---------- Products Preview ---------- */
 
 .products-preview {
