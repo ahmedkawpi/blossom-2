@@ -1,17 +1,23 @@
 document.addEventListener("DOMContentLoaded", () => {
-    loadProducts();
+    loadProduct();
 });
 
-async function loadProducts() {
-    const productsList =
-        document.getElementById("products-list") ||
-        document.getElementById("home-products");
+async function loadProduct() {
+    const app = document.getElementById("app");
 
-    if (!productsList) return;
+    if (!app) return;
 
-    productsList.innerHTML = "<p>جاري تحميل المنتجات...</p>";
+    const params = new URLSearchParams(window.location.search);
+    const productId = params.get("id");
 
-    const { data, error } = await supabaseClient
+    if (!productId) {
+        app.innerHTML = "<p>المنتج غير موجود.</p>";
+        return;
+    }
+
+    app.innerHTML = "<p>جاري تحميل المنتج...</p>";
+
+    const { data: product, error } = await supabaseClient
         .from("products")
         .select(`
             id,
@@ -27,34 +33,27 @@ async function loadProducts() {
             category,
             image_url
         `)
+        .eq("id", productId)
         .eq("is_active", true)
-        .order("sort_order", { ascending: true });
+        .single();
 
     if (error) {
-        console.error("Products loading error:", error);
-        productsList.innerHTML = "<p>حدث خطأ في تحميل المنتجات.</p>";
+        console.error("Product loading error:", error);
+        app.innerHTML = "<p>تعذر تحميل المنتج.</p>";
         return;
     }
 
-    renderProducts(data);
+    renderProduct(product);
 }
 
-function renderProducts(products) {
-    const productsList =
-        document.getElementById("products-list") ||
-        document.getElementById("home-products");
+function renderProduct(product) {
+    const app = document.getElementById("app");
 
-    if (!products.length) {
-        productsList.innerHTML = "<p>لا توجد منتجات حالياً.</p>";
-        return;
-    }
+    app.innerHTML = `
+        <section class="product-page">
+            <div class="container product-page-inner">
 
-    productsList.innerHTML = products.map(product => `
-        <article class="product-card">
-
-            <a href="product.html?id=${product.id}" class="product-link">
-
-                <div class="product-image">
+                <div class="product-page-image">
                     ${
                         product.image_url
                             ? `<img src="${product.image_url}" alt="${product.name_ar}">`
@@ -62,22 +61,53 @@ function renderProducts(products) {
                     }
                 </div>
 
-                <div class="product-info">
-                    <h3>${product.name_ar}</h3>
+                <div class="product-page-info">
+
+                    <p class="product-category">
+                        ${product.category || ""}
+                    </p>
+
+                    <h1>${product.name_ar}</h1>
 
                     ${
                         product.description_ar
-                            ? `<p>${product.description_ar}</p>`
+                            ? `<p class="product-description">${product.description_ar}</p>`
                             : ""
                     }
 
-                    <strong>
-                        ${Number(product.price).toLocaleString("fr-DZ")} DZD
-                    </strong>
+                    <div class="product-price">
+
+                        ${
+                            product.old_price
+                                ? `<del>${Number(product.old_price).toLocaleString("fr-DZ")} DZD</del>`
+                                : ""
+                        }
+
+                        <strong>
+                            ${Number(product.price).toLocaleString("fr-DZ")} DZD
+                        </strong>
+
+                    </div>
+
+                    <p class="product-stock">
+                        ${
+                            product.stock > 0
+                                ? `متوفر — ${product.stock} قطعة`
+                                : "غير متوفر حالياً"
+                        }
+                    </p>
+
+                    <button
+                        type="button"
+                        class="product-order-btn"
+                        ${product.stock <= 0 ? "disabled" : ""}
+                    >
+                        اطلب الآن
+                    </button>
+
                 </div>
 
-            </a>
-
-        </article>
-    `).join("");
+            </div>
+        </section>
+    `;
 }
