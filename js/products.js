@@ -3,7 +3,9 @@ document.addEventListener("DOMContentLoaded", () => {
 });
 
 async function loadProducts() {
-    const productsList = document.getElementById("products-list");
+    const productsList =
+        document.getElementById("products-list") ||
+        document.getElementById("home-products");
 
     if (!productsList) return;
 
@@ -38,7 +40,9 @@ async function loadProducts() {
 }
 
 function renderProducts(products) {
-    const productsList = document.getElementById("products-list");
+    const productsList =
+        document.getElementById("products-list") ||
+        document.getElementById("home-products");
 
     if (!products.length) {
         productsList.innerHTML = "<p>لا توجد منتجات حالياً.</p>";
