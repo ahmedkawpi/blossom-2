@@ -1,8 +1,7 @@
 const SUPABASE_CONFIG = {
     url: "https://nqvxnjmkkvvvyqwstkaa.supabase.co",
-    publishableKey: "sb_publishable_9nmpN3ToD6_MlpiqN7wN4w_ma40PzBjAPI_KEY_HERE"
+    publishableKey: "sb_publishable_..."
 };
-
 const STORE_CONFIG = {
     name: "man clothes",
     logo: "",
