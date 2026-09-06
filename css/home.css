@@ -131,3 +131,37 @@
 
     border-radius: var(--radius-lg);
 }
+/* ---------- Products Preview ---------- */
+
+.products-preview {
+    padding-block: 80px;
+}
+
+.section-heading {
+    margin-bottom: 32px;
+}
+
+.section-eyebrow {
+    font-size: 13px;
+    font-weight: 600;
+    opacity: 0.6;
+    margin-bottom: 8px;
+}
+
+.section-heading h2 {
+    font-size: clamp(28px, 6vw, 42px);
+    line-height: 1.1;
+}
+
+.products-grid {
+    display: grid;
+    grid-template-columns: repeat(2, minmax(0, 1fr));
+    gap: 16px;
+}
+
+@media (min-width: 768px) {
+    .products-grid {
+        grid-template-columns: repeat(4, minmax(0, 1fr));
+        gap: 24px;
+    }
+}
